@@ -1,0 +1,204 @@
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #020617;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* SMOOTH HOVER */
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(59,130,246,0.5);
+}
+
+/* CARD GLOW EFFECT */
+.card-hover:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 60px rgba(59,130,246,0.25);
+}
+
+/* NAV LINKS */
+.nav-link {
+  color: #cbd5f5;
+  text-decoration: none;
+  position: relative;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: white;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #3b82f6, #6366f1);
+  transition: 0.3s;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* BUTTON HOVER */
+.btn-hover:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+/* GLOW BUTTON */
+.btn-glow:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 15px 35px rgba(99,102,241,0.7);
+}
+
+/* FLOAT ANIMATION */
+@keyframes floatLogo {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0px); }
+}
+
+/* LOGO HOVER EFFECT */
+.logoContainer:hover img {
+  transform: scale(1.15) rotate(-5deg);
+  filter: drop-shadow(0 0 10px rgba(99,102,241,0.7));
+}
+
+/* TEXT GLOW */
+.logoContainer:hover span {
+  color: #c7d2fe;
+  text-shadow: 0 0 10px rgba(99,102,241,0.6);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #3b82f6, #6366f1, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body {
+  background: linear-gradient(-45deg, #020617, #0f172a, #020617);
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(99,102,241,0.6);
+}
+
+.card-hover:hover {
+  box-shadow: 0 20px 60px rgba(99,102,241,0.3);
+  border: 1px solid rgba(99,102,241,0.4);
+}
+
+.card-premium {
+  position: relative;
+}
+
+.card-premium::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(120deg, transparent, rgba(99,102,241,0.2), transparent);
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.card-premium:hover::before {
+  opacity: 1;
+}
+
+.card-premium:hover {
+  border: 1px solid rgba(99,102,241,0.4);
+  box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+}
+
+input:focus {
+  border: 1px solid #6366f1;
+  box-shadow: 0 0 10px rgba(99,102,241,0.5);
+}
+
+@keyframes cardGlow {
+  0% {
+    box-shadow: 0 0 20px rgba(99,102,241,0.2);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(99,102,241,0.4);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(99,102,241,0.2);
+  }
+}
+
+.feature-card {
+  transition: all 0.3s ease;
+}
+
+.connectVisual:hover {
+  box-shadow:
+    0 50px 120px rgba(0,0,0,0.9),
+    0 0 40px rgba(99,102,241,0.4);
+}
+
+.resume-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  background: linear-gradient(
+    145deg,
+    rgba(99,102,241,0.25),
+    rgba(59,130,246,0.15)
+  );
+  box-shadow: 0 20px 50px rgba(99,102,241,0.4);
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+.news-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 
+    0 20px 60px rgba(99,102,241,0.4),
+    inset 0 0 20px rgba(99,102,241,0.2);
+}
+
+.news-card:hover img {
+  transform: scale(1.1);
+}
+
+.news-card:hover {
+  box-shadow: 0 20px 50px rgba(99, 102, 241, 0.25);
+  border: 1px solid rgba(99, 102, 241, 0.4);
+}
