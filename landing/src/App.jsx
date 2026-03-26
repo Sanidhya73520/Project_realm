@@ -151,7 +151,8 @@ function App() {
   return (
     <BrowserRouter>
 
-      <Navbar />   {/* 👈 ADD THIS LINE */}
+
+      <Navbar /> 
 
       <Routes>
         <Route path="/" element={<Home />} />
