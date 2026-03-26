@@ -9,7 +9,7 @@ function News() {
   const [page, setPage] = useState(1);
   const [debouncedSearch, setDebouncedSearch] = useState("");
 
- const API_KEY = "8c6ec2bfc87c05f6883cf9470f927a8c";
+ const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
   const url = `https://gnews.io/api/v4/top-headlines?category=technology&lang=en&max=10&apikey=${API_KEY}`;
 
   // const getImage = (news) => {
