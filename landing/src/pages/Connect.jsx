@@ -13,7 +13,7 @@ function Connect() {
   }, []);
   const fetchProfiles = async () => {
     try {
-      const res = await axios.get("http://localhost:5001/profiles");
+      const res = await axios.get("https://project-realm-6kgl.vercel.app/profiles");
       setProfiles(res.data);
     } catch (err) {
       console.log(err);
