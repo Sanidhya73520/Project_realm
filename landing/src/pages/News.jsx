@@ -9,53 +9,83 @@ function News() {
   const [page, setPage] = useState(1);
   const [debouncedSearch, setDebouncedSearch] = useState("");
 
-  const API_KEY = "8c6ec2bfc87c05f6883cf9470f927a8c";
+ const API_KEY = "8c6ec2bfc87c05f6883cf9470f927a8c";
   const url = `https://gnews.io/api/v4/top-headlines?category=technology&lang=en&max=10&apikey=${API_KEY}`;
 
-  const getImage = (news) => {
-    if (!news) return null;
-    const url = news.image_url || news.urlToImage;
-    if (!url) return null;
-    if (typeof url !== "string") return null;
-    if (url.includes("null")) return null;
-    return url;
-  };
+  // const getImage = (news) => {
+  //   if (!news) return null;
+  //   // const url = news.image_url || news.urlToImage;
+  //   const url = news?.image;
+  //  if (!url || typeof url !== "string" || url.trim() === "") return null;
+  //   return url;
+  // };
   
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearch(search);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [search]);
+  const getImage = (news) => {
+  const url = news?.image;
+  if (!url || typeof url !== "string" || url.trim() === "") return null;
+  return url;
+};
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setDebouncedSearch(search);
+  //   }, 500);
+  //   return () => clearTimeout(timer);
+  // }, [search]);
 
   // 🔥 FETCH NEWS
+  // useEffect(() => {
+  //   setLoading(true);
+  //   let url = "";
+  //   if (debouncedSearch && debouncedSearch.trim().length > 2) {
+  //     url = `https://gnews.io/api/v4/search?q=${encodeURIComponent(
+  //       debouncedSearch
+  //     )}&lang=en&max=10&apikey=${API_KEY}`;
+  //   } else {
+  //     url = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&max=10&apikey=${API_KEY}`;
+  //   }
+  //   fetch(url)
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     console.log("SEARCH API:", data);
+  //     if (data.articles) {
+  //       setArticles(data.articles);
+  //     } else {
+  //       setArticles([]);
+  //     }
+  //     setLoading(false);
+  //   })
+  //   .catch((err) => {
+  //     console.error(err);
+  //     setLoading(false);
+  //   });
+  // }, [debouncedSearch, category,page]);
+
   useEffect(() => {
-    setLoading(true);
-    let url = "";
-    if (debouncedSearch && debouncedSearch.trim().length > 2) {
-      url = `https://gnews.io/api/v4/search?q=${encodeURIComponent(
-        debouncedSearch
-      )}&lang=en&max=10&apikey=${API_KEY}`;
-    } else {
-      url = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&max=10&apikey=${API_KEY}`;
-    }
-    fetch(url)
+  setLoading(true);
+  let url = "";
+
+  if (debouncedSearch && debouncedSearch.trim().length > 2) {
+    url = `https://gnews.io/api/v4/search?q=${encodeURIComponent(
+      debouncedSearch
+    )}&lang=en&max=10&page=${page}&apikey=${API_KEY}`;
+  } else {
+    url = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&max=10&page=${page}&apikey=${API_KEY}`;
+  }
+
+  fetch(url)
     .then((res) => res.json())
     .then((data) => {
       console.log("SEARCH API:", data);
-      if (data.articles) {
-        setArticles(data.articles);
-      } else {
-        setArticles([]);
-      }
+
+      setArticles((prev) => [...prev, ...(data.articles || [])]); // ✅ infinite scroll fix
+
       setLoading(false);
     })
     .catch((err) => {
       console.error(err);
       setLoading(false);
     });
-  }, [debouncedSearch, category]);
-
+}, [debouncedSearch, category, page]); 
   // 🔥 RESET ON SEARCH / CATEGORY CHANGE
   useEffect(() => {
     setArticles([]);
@@ -166,7 +196,7 @@ function News() {
             >
               {/* IMAGE */}
               <div style={styles.imageWrapper}>
-                {getImage(news) ? (
+                {/* {getImage(news) ? (
                   <img
                   src={getImage(news)}
                   alt="news"
@@ -180,7 +210,13 @@ function News() {
                 <div style={styles.imageFallback}>
                   📰
                 </div>
-                )}
+                )} */}
+                <img
+  src={getImage(news) || "https://via.placeholder.com/400x200?text=No+Image"}
+  alt="news"
+  style={styles.image}
+  loading="lazy"
+/>
                 {/* 🔥 OVERLAY */}
                 <div style={styles.overlay}></div>
                 {/* 🔖 BOOKMARK */}

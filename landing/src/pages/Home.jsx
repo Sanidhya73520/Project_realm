@@ -28,19 +28,19 @@ import {
 export default function Home() {
   const newsHighlights = [
     {
-      title: "AI is transforming dev workflows",
-      desc: "AI tools are reshaping how developers build apps faster.",
+      title: "OpenAI Unveils GPT-5 with Agentic AI Capabilities",
+      desc: "The next-generation model can autonomously browse, code, and execute complex multi-step tasks without human intervention.",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80"
     },
     {
-      title: "React ecosystem evolving fast",
-      desc: "New frameworks & tools are pushing React forward.",
-      image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&q=80"
+      title: "Vibe Coding Is Taking Over Software Development",
+      desc: "AI-powered IDEs like Cursor and Windsurf are transforming how developers write code - 10x productivity gains reported.",
+      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80"
     },
     {
-      title: "Startups shifting to AI-first",
-      desc: "AI-first startups are dominating innovation space.",
-      image: "https://images.unsplash.com/photo-1674027392884-751cb1f0cb6b?w=1200&q=80"
+      title: "Quantum Computing Hits Commercial Viability",
+      desc: "IBM and Google announce breakthrough quantum processors that threaten current encryption standards within 5 years.",
+      image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1200&q=80"
     }
   ];
   const [formData, setFormData] = useState({
@@ -491,8 +491,16 @@ export default function Home() {
         {newsHighlights.map((item, i) => (
           <SwiperSlide key={i}>
             <div style={styles.newsCard}>
-              <img src={item.image} style={styles.newsImage} />
-              <div style={styles.overlay}>
+              {/* <img src={item.image} style={styles.newsImage} /> */}
+              <img
+  src={item.image || "https://via.placeholder.com/800x450?text=No+Image"}
+  alt={item.title}
+  style={styles.newsImage}
+  onError={(e) => {
+    e.target.src = "https://via.placeholder.com/800x450?text=No+Image";
+  }}
+/>
+              <div style={styles.newsOverlay}>
                 <h2>{item.title}</h2>
                 <p>{item.desc}</p>
                 <button
@@ -1100,7 +1108,7 @@ const styles = {
     background: "white",
     border: "1px solid #e5e7eb",
     textAlign: "center",
-    boxShadow: "0 4px 20px rgba(0,0,0,0.05)"
+    boxShadow: "0 4px 15px rgba(0,0,0,0.05)"
   },
   avatarPreview: {
     width: "60px",
@@ -1148,6 +1156,7 @@ const styles = {
     color: "#1f2937",
     textAlign: "left"
   },
+
   lightSweep: {
     position: "absolute",
     top: 0,
@@ -1164,6 +1173,7 @@ const styles = {
     left: "30px",
     zIndex: 2
   },
+
 
   visualTitle: {
     fontSize: "28px",
@@ -1312,26 +1322,31 @@ const styles = {
   },
   newsCard: {
     position: "relative",
-    borderRadius: "24px",
-    overflow: "hidden",
-    height: "450px",
-    boxShadow: "0 20px 60px rgba(0,0,0,0.1)",
-    border: "1px solid #e5e7eb"
+    height: "400px",
+    borderRadius: "20px",
+    overflow: "hidden"
   },
   newsImage: {
     width: "100%",
     height: "100%",
-    objectFit: "cover"
+    objectFit: "cover",
+    filter: "brightness(0.85)"
   },
-  overlay: {
+  newsOverlay: {
     position: "absolute",
-    bottom: 0,
+    top: 0,
     left: 0,
-    right: 0,
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
     padding: "40px",
-    background: "linear-gradient(to top, rgba(255,255,255,0.98), rgba(255,255,255,0.7))",
-    color: "#1f2937",
-    textAlign: "left"
+    background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.5) 100%)",
+    color: "#fff",
+    textShadow: "0 2px 10px rgba(0,0,0,0.6)"
   },
   dynamicTitle: {
     fontSize: "32px",
