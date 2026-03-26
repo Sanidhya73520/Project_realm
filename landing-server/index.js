@@ -8,6 +8,10 @@ app.use(express.json());
 
 let profiles = [];
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the Landing Server!");
+});
+
 // CREATE PROFILE
 app.post("/profiles", (req, res) => {
   const { name, domain, skills } = req.body;

@@ -9,7 +9,7 @@ function News() {
   const [page, setPage] = useState(1);
   const [debouncedSearch, setDebouncedSearch] = useState("");
 
-  const API_KEY = "fe8376ba8ad5a99645b5dbc3999fad05";
+  const API_KEY = "8c6ec2bfc87c05f6883cf9470f927a8c";
   const url = `https://gnews.io/api/v4/top-headlines?category=technology&lang=en&max=10&apikey=${API_KEY}`;
 
   const getImage = (news) => {
@@ -88,17 +88,29 @@ function News() {
 
   return (
     <div style={styles.container}>
+      <div style={styles.decorativeOrb}></div>
+      <div style={styles.content}>
       {/* HERO */}
-      <div style={styles.hero}>
+      <motion.div 
+        style={styles.hero}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
         <h1 style={styles.title}>
           Stay Ahead with <span style={styles.gradient}>Tech Trends</span>
         </h1>
         <p style={styles.subtitle}>
           Discover the latest in AI, startups, cybersecurity & innovation 🚀
         </p>
-      </div>
+      </motion.div>
       {/* SEARCH + FILTER */}
-      <div style={styles.topBar}>
+      <motion.div 
+        style={styles.topBar}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
         <input
         placeholder="Search AI, Startups..."
         style={styles.search}
@@ -109,7 +121,7 @@ function News() {
 
         <div style={styles.filters}>
           {["technology", "business", "science"].map((cat) => (
-            <button
+            <motion.button
               key={cat}
               style={{
                 ...styles.filterBtn,
@@ -119,12 +131,14 @@ function News() {
                     : "transparent"
               }}
               onClick={() => setCategory(cat)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               {cat.toUpperCase()}
-            </button>
+            </motion.button>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* NEWS */}
       {loading && articles.length === 0 ? (
@@ -141,8 +155,14 @@ function News() {
             style={styles.card}
             className="news-card"
             initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={{ scale: 1.04 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: i * 0.08 }}
+            whileHover={{ 
+              scale: 1.04,
+              y: -8,
+              boxShadow: "0 20px 50px rgba(37,99,235,0.15)"
+            }}
             >
               {/* IMAGE */}
               <div style={styles.imageWrapper}>
@@ -177,14 +197,25 @@ function News() {
               </div>
               {/* BUTTON */}
               <div style={styles.buttonWrapper}>
-                <a href={news.url || "#"} target="_blank" rel="noreferrer" style={styles.readBtn}>
+                <motion.a 
+                  href={news.url || "#"} 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  style={styles.readBtn}
+                  whileHover={{ 
+                    scale: 1.05,
+                    boxShadow: "0 8px 25px rgba(37,99,235,0.4)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   Read More →
-                </a>
+                </motion.a>
               </div>
             </motion.div>
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 }
@@ -194,30 +225,51 @@ export default News;
 const styles = {
   container: {
     minHeight: "100vh",
-    padding: "120px 8%",
-    background: "radial-gradient(circle at top, #0f172a, #020617)",
-    color: "white"
+    padding: "120px 8% 60px",
+    background: "linear-gradient(135deg, #f0f9ff 0%, #f8fafc 50%, #e0f2fe 100%)",
+    color: "#1f2937",
+    position: "relative",
+    overflow: "hidden"
   },
-
+  decorativeOrb: {
+    position: "absolute",
+    width: "600px",
+    height: "600px",
+    background: "radial-gradient(circle, rgba(59,130,246,0.1), transparent)",
+    filter: "blur(100px)",
+    top: "-20%",
+    left: "50%",
+    transform: "translateX(-50%)",
+    zIndex: 0
+  },
+  content: {
+    position: "relative",
+    zIndex: 1
+  },
   hero: {
     textAlign: "center",
-    marginBottom: "40px"
+    marginBottom: "50px",
+    position: "relative"
   },
 
   title: {
-    fontSize: "42px",
-    fontWeight: "800"
+    fontSize: "46px",
+    fontWeight: "800",
+    color: "#1e40af",
+    letterSpacing: "-0.02em",
+    textShadow: "0 2px 10px rgba(37,99,235,0.1)"
   },
 
   gradient: {
-    background: "linear-gradient(135deg,#3b82f6,#6366f1)",
+    background: "linear-gradient(135deg,#2563eb,#3b82f6)",
     WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent"
+    color: "transparent"
   },
 
   subtitle: {
-    color: "#94a3b8",
-    marginTop: "10px"
+    color: "#6b7280",
+    marginTop: "12px",
+    fontSize: "18px"
   },
 
   topBar: {
@@ -225,123 +277,148 @@ const styles = {
     justifyContent: "space-between",
     flexWrap: "wrap",
     marginBottom: "40px",
-    gap: "20px"
+    gap: "20px",
+    alignItems: "center",
+    position: "relative",
+    zIndex: 1
   },
 
   search: {
-    padding: "12px",
-    borderRadius: "10px",
-    border: "1px solid #1e293b",
-    background: "#020617",
-    color: "white"
+    padding: "16px 24px",
+    borderRadius: "14px",
+    border: "1.5px solid #dbeafe",
+    background: "rgba(255,255,255,0.9)",
+    color: "#1f2937",
+    fontSize: "15px",
+    width: "320px",
+    boxShadow: "0 4px 20px rgba(37,99,235,0.1), 0 0 0 1px rgba(37,99,235,0.05)",
+    outline: "none"
   },
 
   filters: {
     display: "flex",
-    gap: "10px"
+    gap: "12px"
   },
 
   filterBtn: {
-    padding: "8px 16px",
-    borderRadius: "20px",
-    border: "1px solid #334155",
-    color: "white",
-    cursor: "pointer"
+    padding: "12px 22px",
+    borderRadius: "24px",
+    border: "1.5px solid #dbeafe",
+    color: "#4b5563",
+    cursor: "pointer",
+    fontWeight: "500",
+    fontSize: "14px",
+    background: "rgba(255,255,255,0.9)",
+    transition: "0.3s",
+    boxShadow: "0 2px 10px rgba(37,99,235,0.05)"
   },
 
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-    gap: "25px"
+    gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+    gap: "30px",
+    maxWidth: "1400px",
+    margin: "0 auto",
+    position: "relative",
+    zIndex: 1
   },
 
   card: {
-    background: "rgba(15,23,42,0.6)",
-    backdropFilter: "blur(20px)",
-    borderRadius: "18px",
+    background: "rgba(255,255,255,0.95)",
+    borderRadius: "22px",
     overflow: "hidden",
     display: "flex",
     flexDirection: "column",
-    border: "1px solid rgba(255,255,255,0.08)",
+    border: "1px solid #dbeafe",
     transition: "0.3s",
-    position: "relative"
+    position: "relative",
+    boxShadow: "0 8px 30px rgba(37,99,235,0.08), 0 2px 8px rgba(0,0,0,0.04)"
   },
 
   imageWrapper: {
-    position:"relative",
-    overflow:"hidden",
-    height: "180px"
+    position: "relative",
+    overflow: "hidden",
+    height: "200px"
   },
 
   image: {
     width: "100%",
     height: "100%",
     objectFit: "cover",
-    transition:"0.4s"
+    transition: "0.4s"
   },
   overlay: {
     position: "absolute",
     bottom: 0,
     width: "100%",
     height: "60%",
-    background: "linear-gradient(to top, rgba(2,6,23,0.9), transparent)"
+    background: "linear-gradient(to top, rgba(255,255,255,0.98), transparent)"
   },
   bookmark: {
     position: "absolute",
-    top: "10px",
-    right: "10px",
-    background: "rgba(0,0,0,0.5)",
-    padding: "6px 8px",
-    borderRadius: "8px",
-    fontSize: "14px",
-    cursor: "pointer"
+    top: "14px",
+    right: "14px",
+    background: "rgba(255,255,255,0.95)",
+    padding: "10px 12px",
+    borderRadius: "12px",
+    fontSize: "16px",
+    cursor: "pointer",
+    boxShadow: "0 2px 10px rgba(37,99,235,0.1)",
+    border: "1px solid #dbeafe"
   },
 
   cardContent: {
-    padding: "16px",
+    padding: "22px",
     flex: 1
   },
 
   headline: {
-    fontSize: "16px",
-    fontWeight: "600",
-    marginBottom:"10px"
+    fontSize: "18px",
+    fontWeight: "700",
+    marginBottom: "10px",
+    color: "#111827",
+    lineHeight: "1.4"
   },
 
   desc: {
-    fontSize: "13px",
-    color: "#94a3b8"
+    fontSize: "14px",
+    color: "#6b7280",
+    lineHeight: "1.5"
   },
 
   source: {
     fontSize: "12px",
-    color: "#60a5fa"
+    color: "#2563eb",
+    fontWeight: "500"
   },
 
   buttonWrapper: {
-    marginTop:"auto",
+    marginTop: "auto",
     display: "flex",
     justifyContent: "center",
-    paddingBottom: "15px"
+    paddingBottom: "22px"
   },
 
   readBtn: {
-    padding: "8px 18px",
-    borderRadius: "20px",
-    background: "linear-gradient(135deg,#3b82f6,#6366f1)",
+    padding: "12px 26px",
+    borderRadius: "24px",
+    background: "linear-gradient(135deg,#2563eb,#3b82f6)",
     color: "white",
     textDecoration: "none",
-    fontSize:"13px",
-    display:"inline-block",
-    textAlign:"center",
-    transition:"o.3s",
-    boxshadow:"0 5px 15px rgba(99,102,241,0.4)"
+    fontSize: "14px",
+    display: "inline-block",
+    textAlign: "center",
+    fontWeight: "600",
+    boxShadow: "0 4px 20px rgba(37,99,235,0.3)",
+    transition: "0.3s"
   },
 
   skeleton: {
-    height: "280px",
-    borderRadius: "18px",
-    background: "#1e293b"
+    height: "320px",
+    borderRadius: "22px",
+    background: "linear-gradient(90deg, #e0f2fe, #dbeafe, #e0f2fe)",
+    backgroundSize: "200% 100%",
+    animation: "skeleton 1.5s infinite"
   },
   imageFallback: {
     width: "100%",
@@ -349,7 +426,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: "40px",
-    background: "linear-gradient(135deg,#020617,#0f172a)"
+    fontSize: "52px",
+    background: "linear-gradient(135deg,#e0f2fe,#dbeafe)"
   }
 };

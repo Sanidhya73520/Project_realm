@@ -27,15 +27,44 @@ function Connect() {
   const styles = {
     container: {
       minHeight: "100vh",
-      padding: "100px 10%",
-      background: "radial-gradient(circle at top, #0f172a, #020617)",
-      color: "white"
+      padding: "120px 10% 60px",
+      background: "linear-gradient(135deg, #f0f9ff 0%, #f8fafc 50%, #e0f2fe 100%)",
+      color: "#1f2937",
+      position: "relative",
+      overflow: "hidden"
+    },
+    decorativeOrb: {
+      position: "absolute",
+      width: "500px",
+      height: "500px",
+      background: "radial-gradient(circle, rgba(59,130,246,0.12), transparent)",
+      filter: "blur(80px)",
+      top: "-10%",
+      right: "-5%",
+      zIndex: 0
+    },
+    decorativeOrb2: {
+      position: "absolute",
+      width: "400px",
+      height: "400px",
+      background: "radial-gradient(circle, rgba(96,165,250,0.1), transparent)",
+      filter: "blur(100px)",
+      bottom: "10%",
+      left: "-5%",
+      zIndex: 0
+    },
+    content: {
+      position: "relative",
+      zIndex: 1
     },
     title: {
-      fontSize: "42px",
+      fontSize: "46px",
       fontWeight: "800",
-      marginBottom: "30px",
-      textAlign: "center"
+      marginBottom: "40px",
+      textAlign: "center",
+      color: "#1e40af",
+      letterSpacing: "-0.02em",
+      textShadow: "0 2px 10px rgba(37,99,235,0.1)"
     },
     searchBox: {
       display: "flex",
@@ -43,150 +72,185 @@ function Connect() {
       marginBottom: "50px"
     },
     input: {
-      padding: "14px 18px",
-      width: "320px",
-      borderRadius: "10px",
-      border: "1px solid #1e293b",
-      background: "#020617",
-      color: "white",
-      outline: "none"
+      padding: "18px 28px",
+      width: "420px",
+      borderRadius: "16px",
+      border: "1.5px solid #dbeafe",
+      background: "rgba(255,255,255,0.9)",
+      color: "#1f2937",
+      outline: "none",
+      fontSize: "15px",
+      boxShadow: "0 4px 20px rgba(37,99,235,0.1), 0 0 0 1px rgba(37,99,235,0.05)",
+      transition: "0.3s"
     },
     grid: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-      gap: "30px"
+      gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+      gap: "30px",
+      maxWidth: "1300px",
+      margin: "0 auto"
     },
     card: {
-      background: "rgba(15,23,42,0.7)",
-      backdropFilter: "blur(14px)",
-      borderRadius: "18px",
-      padding: "20px",
-      border: "1px solid rgba(255,255,255,0.08)",
-
+      background: "rgba(255,255,255,0.95)",
+      borderRadius: "22px",
+      padding: "28px",
+      border: "1px solid #dbeafe",
       display: "flex",
       flexDirection: "column",
-
-      height: "340px",   // 🔥 FIXED HEIGHT
-
+      height: "380px",
       transition: "0.3s",
       position: "relative",
       overflow: "hidden",
-
-      boxShadow: "0 20px 50px rgba(0,0,0,0.6)",
+      boxShadow: "0 8px 30px rgba(37,99,235,0.08), 0 2px 8px rgba(0,0,0,0.04)",
       cursor: "pointer"
     },
     cardTop: {
       display: "flex",
       alignItems: "center",
       gap: "15px",
-      marginBottom: "15px"
+      marginBottom: "18px"
     },
     avatarRing: {
       padding: "3px",
       borderRadius: "50%",
-      background: "linear-gradient(135deg,#3b82f6,#6366f1)"
+      background: "linear-gradient(135deg,#2563eb,#3b82f6)"
     },
     avatar: {
-      width: "48px",
-      height: "48px",
+      width: "52px",
+      height: "52px",
       borderRadius: "50%",
-      background: "#020617",
+      background: "#f1f5f9",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      fontWeight: "700"
+      fontWeight: "700",
+      fontSize: "20px",
+      color: "#2563eb"
     },
     bio: {
-      fontSize: "13px",
-      color: "#94a3b8",
-      lineHeight:"1.5"
+      fontSize: "14px",
+      color: "#6b7280",
+      lineHeight: "1.6"
     },
 
     name: {
-      fontSize: "18px",
-      fontWeight: "600"
+      fontSize: "20px",
+      fontWeight: "700",
+      color: "#111827"
     },
     domain: {
-      fontSize: "13px",
-      color: "#94a3b8"
+      fontSize: "14px",
+      color: "#6b7280",
+      fontWeight: "500"
     },
     skills: {
       display: "flex",
       flexWrap: "wrap",
       gap: "8px",
       marginBottom: "15px",
-      minHeight:"32px"
+      minHeight: "36px"
     },
     contactRow: {
       display: "flex",
       flexDirection: "column",
       gap: "4px",
-      marginBottom: "12px"
+      marginBottom: "14px"
     },
     contactItem: {
-      fontSize: "12px",
-      color: "#cbd5f5"
+      fontSize: "13px",
+      color: "#6b7280"
     },
     skillTag: {
-      background: "rgba(99,102,241,0.15)",
-      padding: "6px 12px",
+      background: "#eff6ff",
+      padding: "6px 14px",
       borderRadius: "20px",
       fontSize: "12px",
-      border: "1px solid rgba(99,102,241,0.3)",
-      transition:"0.3s"
+      border: "1px solid #dbeafe",
+      color: "#2563eb",
+      fontWeight: "500",
+      transition: "0.3s"
     },
     connectBtn: {
       width: "100%",
-      padding: "10px",
-      borderRadius: "10px",
+      padding: "12px",
+      borderRadius: "12px",
       border: "none",
-      background: "linear-gradient(135deg,#3b82f6,#6366f1)",
+      background: "linear-gradient(135deg,#2563eb,#3b82f6)",
       color: "white",
-      cursor: "pointer"
+      cursor: "pointer",
+      fontWeight: "600",
+      fontSize: "15px",
+      boxShadow: "0 4px 15px rgba(37,99,235,0.3)",
+      transition: "0.3s"
     },
     status: {
       position: "absolute",
-      top: "15px",
-      right: "15px",
+      top: "18px",
+      right: "18px",
       width: "10px",
       height: "10px",
       borderRadius: "50%",
       background: "#22c55e",
-      boxShadow: "0 0 10px #22c55e"
+      boxShadow: "0 0 10px rgba(34,197,94,0.5)"
     },
     bioBox: {
       minHeight: "70px",
-      marginBottom:"12px"
+      marginBottom: "14px"
     },
     contactBox: {
-      
       display: "flex",
       flexDirection: "column",
       gap: "6px",
-      marginBottom:"12px"
+      marginBottom: "14px"
     },
     skillsBox: {
       display: "flex",
       gap: "8px",
       flexWrap: "wrap",
-      marginBottom:"12px"
+      marginBottom: "16px"
     },
     buttonWrapper: {
       marginTop: "auto"
-    },
+    }
   }
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>Connect with Developers</h1>
-      {/* SEARCH */}
-      <div style={styles.searchBox}>
-        <input placeholder="Search by domain (frontend, AI, backend...)" style={styles.input} onChange={(e) => setSearch(e.target.value)}/>
-      </div>
-      {/* GRID */}
-      <div style={styles.grid}>
-        {filteredProfiles.map((p, index) => (
-          <div key={index} style={styles.card} className="connect-card">
+      <div style={styles.decorativeOrb}></div>
+      <div style={styles.decorativeOrb2}></div>
+      <div style={styles.content}>
+        <motion.h1 
+          style={styles.title}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >Connect with Developers</motion.h1>
+        {/* SEARCH */}
+        <motion.div 
+          style={styles.searchBox}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <input placeholder="Search by domain (frontend, AI, backend...)" style={styles.input} onChange={(e) => setSearch(e.target.value)}/>
+        </motion.div>
+        {/* GRID */}
+        <div style={styles.grid}>
+          {filteredProfiles.map((p, index) => (
+            <motion.div 
+              key={index} 
+              style={styles.card} 
+              className="connect-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.4, delay: index * 0.08 }}
+              whileHover={{ 
+                scale: 1.03, 
+                y: -8,
+                boxShadow: "0 20px 50px rgba(37,99,235,0.15)"
+              }}
+            >
             {/* STATUS DOT */}
             <div style={styles.status}></div>
             {/* TOP */}
@@ -230,7 +294,10 @@ function Connect() {
             {/* BUTTON */}
             <motion.button
             style={styles.connectBtn}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ 
+              scale: 1.05,
+              boxShadow: "0 8px 25px rgba(37,99,235,0.4)"
+            }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
               if (!p.email) {
@@ -248,8 +315,9 @@ function Connect() {
               Connect
             </motion.button>
             
-          </div>
+          </motion.div>
         ))}
+      </div>
       </div>
     </div>
   );
